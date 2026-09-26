@@ -1,0 +1,17 @@
+{
+  "name": "aurora-vault",
+  "version": "1.0.0",
+  "description": "Local web app to download photos and reels from a Facebook profile.",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "playwright-core": "^1.56.0"
+  }
+}

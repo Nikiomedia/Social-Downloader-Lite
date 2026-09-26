@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aurora Vault</title>
+<meta name="description" content="Download photos and reels from a Facebook profile in full resolution, one by one or as a ZIP.">
+<meta name="theme-color" content="#05060b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%2345f0e0'/%3E%3Cstop offset='.55' stop-color='%238a6cff'/%3E%3Cstop offset='1' stop-color='%23ff4fb6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2305060b'/%3E%3Cpath d='M10 40 C22 16 42 16 54 40' stroke='url(%23g)' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M18 48 C28 34 36 34 46 48' stroke='url(%23g)' stroke-width='5' fill='none' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/card-spin.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="auroraStroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#45f0e0"/><stop offset=".55" stop-color="#8a6cff"/><stop offset="1" stop-color="#ff4fb6"/>
+        </linearGradient>
+    </defs>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.8"/><path d="m20.5 16-5-5-8.5 8.5"/></symbol>
+    <symbol id="i-reel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="3.5"/><path d="m10.5 9.2 4 2.8-4 2.8z" fill="currentColor"/></symbol>
+    <symbol id="i-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="9" rx="2"/><rect x="13.5" y="3.5" width="7" height="5" rx="2"/><rect x="13.5" y="11.5" width="7" height="9" rx="2"/><rect x="3.5" y="15.5" width="7" height="5" rx="2"/></symbol>
+    <symbol id="i-zip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5 12 4l8 4.5v7L12 20l-8-4.5z"/><path d="M4 8.5 12 13l8-4.5"/><path d="M12 13v7"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-select" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 6-6 6 6 6"/></symbol>
+    <symbol id="i-first" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6v12"/><path d="m17 6-6 6 6 6"/></symbol>
+    <symbol id="i-last" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 6v12"/><path d="m7 6 6 6-6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.5 6 6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.5h5.5V10"/><path d="M19.5 4.5 11 13"/><path d="M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l2.8-2.8a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-2.8 2.8a4.5 4.5 0 0 0 6.4 6.4l1-1"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v5M15 3v5"/><path d="M6.5 8h11v3.5a5.5 5.5 0 0 1-11 0z"/><path d="M12 17v4"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.5h3.5a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H14"/><path d="M10 16.5 5.5 12 10 7.5"/><path d="M5.5 12H15"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5h3l4.5-4v13l-4.5-4h-3z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+    <symbol id="i-volume-low" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5h3l4.5-4v13l-4.5-4h-3z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5h3l4.5-4v13l-4.5-4h-3z" fill="currentColor"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="i-grid-s" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="5" height="5" rx="1.2"/><rect x="9.5" y="3" width="5" height="5" rx="1.2"/><rect x="16" y="3" width="5" height="5" rx="1.2"/><rect x="3" y="9.5" width="5" height="5" rx="1.2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1.2"/><rect x="16" y="9.5" width="5" height="5" rx="1.2"/><rect x="3" y="16" width="5" height="5" rx="1.2"/><rect x="9.5" y="16" width="5" height="5" rx="1.2"/><rect x="16" y="16" width="5" height="5" rx="1.2"/></symbol>
+    <symbol id="i-grid-m" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></symbol>
+    <symbol id="i-grid-l" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m12 3.2 2.6 5.5 6 .8-4.4 4.2 1.1 5.9L12 16.8l-5.3 2.8 1.1-5.9-4.4-4.2 6-.8z"/></symbol>
+    <symbol id="i-star-fill" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.2 2.6 5.5 6 .8-4.4 4.2 1.1 5.9L12 16.8l-5.3 2.8 1.1-5.9-4.4-4.2 6-.8z"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 7.5h9a4.5 4.5 0 0 1 4.4 5.5l-.9 4a2.6 2.6 0 0 1-4.5 1.1L14 16.5h-4l-1.5 1.6A2.6 2.6 0 0 1 4 17l-.9-4a4.5 4.5 0 0 1 4.4-5.5z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="15.5" cy="11" r=".9" fill="currentColor"/><circle cx="17.5" cy="13" r=".9" fill="currentColor"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5.5"/><path d="m6 11 6-6 6 6"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5c.6 4.6 2.9 6.9 7.5 7.5-4.6.6-6.9 2.9-7.5 7.5-.6-4.6-2.9-6.9-7.5-7.5 4.6-.6 6.9-2.9 7.5-7.5z"/><path d="M19 15.5c.3 2 1.2 2.9 3 3.2-1.8.3-2.7 1.2-3 3.2-.3-2-1.2-2.9-3-3.2 1.8-.3 2.7-1.2 3-3.2z" opacity=".7"/></symbol>
+</svg>
+
+<div class="bg-fallback"></div>
+<canvas id="aurora" aria-hidden="true"></canvas>
+<div class="bg-veil"></div>
+<div class="grid-glow" id="gridGlow" aria-hidden="true"></div>
+<div class="scroll-line" id="scrollLine"></div>
+
+<header class="topbar">
+    <button class="brand" id="brand" type="button" aria-label="Aurora Vault">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-text">
+            <span class="brand-name" id="brandName">AURORA VAULT</span>
+            <span class="brand-sub" data-i18n="brandSub"></span>
+        </span>
+    </button>
+    <div class="top-actions">
+        <div class="lang" role="group" aria-label="Language">
+            <button type="button" data-lang="de" aria-pressed="true">DE</button>
+            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button class="pill-btn fav-pill" id="btnFavs" type="button" aria-haspopup="menu" data-magnetic><svg><use href="#i-star"/></svg><span data-i18n="favorites"></span><span class="fav-count" id="favCount" hidden>0</span></button>
+        <button class="conn" id="conn" type="button" data-state="off" aria-haspopup="menu">
+            <span class="conn-avatar" id="connAvatar"><svg width="15" height="15"><use href="#i-plug"/></svg></span>
+            <span class="conn-label" id="connLabel"></span>
+            <span class="conn-dot"></span>
+        </button>
+    </div>
+    <div class="menu fav-menu" id="favMenu" role="menu" hidden>
+        <div class="menu-head"><b data-i18n="favorites"></b><small data-i18n="favHint"></small></div>
+        <div class="fav-list" id="favList"></div>
+        <div class="fav-foot">
+            <button type="button" id="favExport"><svg><use href="#i-download"/></svg><span data-i18n="favExport"></span></button>
+            <button type="button" id="favImport"><svg><use href="#i-upload"/></svg><span data-i18n="favImport"></span></button>
+            <input type="file" id="favFile" accept="application/json,.json" hidden>
+        </div>
+    </div>
+    <div class="menu" id="connMenu" role="menu" hidden>
+        <div class="menu-head"><small data-i18n="menuConnectedAs"></small><b id="menuName"></b><small id="menuUid"></small></div>
+        <button type="button" role="menuitem" id="menuReconnect"><svg><use href="#i-refresh"/></svg><span data-i18n="menuReconnect"></span></button>
+        <button type="button" role="menuitem" id="menuCancel"><svg><use href="#i-close"/></svg><span data-i18n="menuCancel"></span></button>
+        <button type="button" role="menuitem" id="menuLogout"><svg><use href="#i-logout"/></svg><span data-i18n="menuLogout"></span></button>
+    </div>
+</header>
+
+<main class="app shell" id="app">
+    <section class="hero" id="hero">
+        <div class="hero-copy">
+            <p class="eyebrow" data-i18n="eyebrow"></p>
+            <h1 class="headline" id="headline"></h1>
+            <p class="hero-sub" data-i18n="heroSub"></p>
+            <div id="scannerHome">
+                <form class="scanner" id="scanForm" autocomplete="off" novalidate>
+                    <label class="sr-only" for="scanInput" data-i18n="inputLabel"></label>
+                    <div class="scanner-field">
+                        <svg class="lead"><use href="#i-link"/></svg>
+                        <input id="scanInput" name="url" type="text" inputmode="url" spellcheck="false" autocapitalize="off">
+                        <button class="scan-btn" id="scanBtn" type="submit" data-magnetic><svg><use href="#i-scan"/></svg><span data-i18n="scan"></span></button>
+                    </div>
+                </form>
+            </div>
+            <div class="scanner-hint">
+                <button class="link-btn" id="btnDemo" type="button"><svg><use href="#i-sparkle"/></svg><span data-i18n="tryDemo"></span></button>
+                <span class="hint-login" id="hintLogin"></span>
+            </div>
+            <div class="hero-favs" id="heroFavs" hidden>
+                <p class="hero-favs-title"><svg><use href="#i-star-fill"/></svg><span data-i18n="favorites"></span></p>
+                <div class="hero-favs-row" id="heroFavsRow"></div>
+            </div>
+        </div>
+        <div class="stack" id="stack" aria-hidden="true">
+            <div class="stack-glow"></div>
+            <div class="stack-inner" id="stackInner">
+                <div class="scard c1"><img src="demo/image_01_thumb.jpg" alt=""><span class="tag"><svg><use href="#i-image"/></svg><span data-i18n="cardImage"></span></span></div>
+                <div class="scard c2"><img src="demo/reel_02_thumb.jpg" alt=""><span class="tag"><svg><use href="#i-reel"/></svg><span data-i18n="cardReel"></span></span></div>
+                <div class="scard c3"><div class="zipface"><svg width="44" height="44" style="color:#9ff9f1"><use href="#i-zip"/></svg><b>.ZIP</b><small data-i18n="cardZipSub"></small><span class="bars"><i></i><i></i><i></i><i></i></span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="results" id="results" hidden>
+        <div class="cmdbar">
+            <div id="scannerTop" style="flex:1; max-width:720px"></div>
+            <button class="btn-ghost" id="btnNew" type="button"><svg><use href="#i-refresh"/></svg><span data-i18n="newProfile"></span></button>
+        </div>
+
+        <div class="band" id="band">
+            <canvas class="band-cover" id="bandCover" width="32" height="32" aria-hidden="true"></canvas>
+            <div class="avatar-wrap"><div class="avatar-ring"></div><div class="avatar" id="avatar"></div></div>
+            <div class="band-info">
+                <div class="band-kicker"><span class="dot"></span><span id="phaseText"></span></div>
+                <h2 class="band-name" id="profileName">…</h2>
+                <div class="band-meta">
+                    <span id="followers"></span>
+                    <a id="profileLink" href="#" target="_blank" rel="noopener noreferrer"></a>
+                </div>
+                <div class="stats">
+                    <div class="stat"><b id="statImages">0</b><small data-i18n="statImages"></small></div>
+                    <div class="stat"><b id="statReels">0</b><small data-i18n="statReels"></small></div>
+                    <div class="stat hd"><b id="statHd">0</b><small data-i18n="statHd"></small></div>
+                </div>
+                <div class="scan-status" id="scanStatus" hidden>
+                    <div class="steps" id="scanSteps">
+                        <span class="step" data-step="images"><i></i><span data-i18n="statImages"></span></span>
+                        <span class="step-line"></span>
+                        <span class="step" data-step="reels"><i></i><span data-i18n="statReels"></span></span>
+                        <span class="step-line"></span>
+                        <span class="step" data-step="done"><i></i><span data-i18n="stepDone"></span></span>
+                    </div>
+                    <span class="scan-found" id="scanStatusText"></span>
+                    <button class="stop" id="btnStop" type="button" data-i18n="stop"></button>
+                    <button class="game-btn" id="btnGameBand" type="button" data-magnetic><svg><use href="#i-gamepad"/></svg><span data-i18n="gamePlay"></span></button>
+                </div>
+                <div class="scan-bar" id="scanBar" hidden><i></i></div>
+            </div>
+            <div class="band-actions">
+                <button class="btn-primary" id="btnZip" type="button" data-magnetic><svg><use href="#i-zip"/></svg><span id="zipLabel"></span><span class="count" id="zipCount"></span></button>
+                <div class="btn-row">
+                    <button class="btn-ghost fav-toggle" id="btnFav" type="button" aria-pressed="false"><svg class="s-off"><use href="#i-star"/></svg><svg class="s-on"><use href="#i-star-fill"/></svg><span id="btnFavLabel" data-i18n="favAdd"></span></button>
+                    <button class="btn-ghost" id="btnSelectBand" type="button"><svg><use href="#i-select"/></svg><span data-i18n="select"></span></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabsbar" id="tabsbar">
+            <div class="tabs" role="tablist" id="tabs">
+                <span class="tab-ink" id="tabInk"></span>
+                <button class="tab" role="tab" type="button" data-tab="all" aria-selected="true"><svg><use href="#i-all"/></svg><span data-i18n="tabAll"></span><span class="n" id="nAll">0</span></button>
+                <button class="tab" role="tab" type="button" data-tab="image" aria-selected="false"><svg><use href="#i-image"/></svg><span data-i18n="tabImages"></span><span class="n" id="nImage">0</span></button>
+                <button class="tab" role="tab" type="button" data-tab="reel" aria-selected="false"><svg><use href="#i-reel"/></svg><span data-i18n="tabReels"></span><span class="n" id="nReel">0</span></button>
+            </div>
+            <div class="tools">
+                <div class="density" role="group">
+                    <button type="button" data-density="s" data-i18n-title="densityS"><svg><use href="#i-grid-s"/></svg></button>
+                    <button type="button" data-density="m" data-i18n-title="densityM" aria-pressed="true"><svg><use href="#i-grid-m"/></svg></button>
+                    <button type="button" data-density="l" data-i18n-title="densityL"><svg><use href="#i-grid-l"/></svg></button>
+                </div>
+                <button class="tool-btn hd-btn" id="btnHd" type="button" aria-pressed="false" data-i18n-title="hdOnlyTitle"><span class="hd-mark">HD</span><span class="hd-label" data-i18n="hdOnly"></span><span class="n" id="nHd">0</span><span class="radar" id="hdSpin" hidden></span></button>
+                <button class="tool-btn" id="btnSelect" type="button" aria-pressed="false"><svg><use href="#i-select"/></svg><span id="btnSelectLabel" data-i18n="select"></span></button>
+            </div>
+        </div>
+
+        <div class="gallery">
+            <div class="grid" id="grid" role="list"></div>
+            <div class="empty" id="empty" hidden><svg><use href="#i-all"/></svg><b data-i18n="emptyTitle"></b><span id="emptyText"></span></div>
+        </div>
+    </section>
+
+    <footer class="foot">
+        <span class="brandline"><b>Aurora Vault</b> · Nikomedia · <span data-i18n="footLegal"></span></span>
+        <span class="keys"><span><kbd>/</kbd><span data-i18n="keysFocus"></span></span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><span data-i18n="keysTabs"></span></span><span><kbd>S</kbd><span data-i18n="keysSelect"></span></span><span><kbd>H</kbd><span data-i18n="keysHd"></span></span><span><kbd>G</kbd><span data-i18n="keysGame"></span></span></span>
+        <button class="palette-btn" id="btnPalette" type="button"><span class="sw"></span><span data-i18n="footPalette"></span>: <span id="paletteName">Aurora</span></button>
+    </footer>
+</main>
+
+<div class="dock" id="dock" aria-live="polite">
+    <span class="dock-label" id="dockLabel"></span>
+    <span class="sep dock-extra"></span>
+    <button class="btn-ghost dock-extra" id="dockSelectAll" type="button" hidden data-i18n="selectAll"></button>
+    <button class="btn-ghost dock-extra" id="dockClear" type="button" hidden data-i18n="selectNone"></button>
+    <button class="btn-ghost" id="dockSelect" type="button"><svg><use href="#i-select"/></svg><span id="dockSelectLabel" data-i18n="select"></span></button>
+    <button class="btn-primary" id="dockZip" type="button" data-magnetic><svg><use href="#i-zip"/></svg><span id="dockZipLabel"></span></button>
+</div>
+
+<div class="vault" id="vault" hidden role="status">
+    <button class="vault-close" id="vaultClose" type="button" data-i18n-aria="lbClose"><svg><use href="#i-close"/></svg></button>
+    <div class="vault-ring" id="vaultRing">
+        <svg viewBox="0 0 72 72"><circle class="bg" cx="36" cy="36" r="32"/><circle class="fg" cx="36" cy="36" r="32"/></svg>
+        <div class="thumb" id="vaultThumb"></div>
+        <div class="pct" id="vaultPct">0%</div>
+    </div>
+    <div>
+        <p class="vault-title" id="vaultTitle"></p>
+        <p class="vault-sub" id="vaultSub"></p>
+    </div>
+    <div class="vault-actions">
+        <button class="btn-ghost" id="vaultCancel" type="button" data-i18n="cancel"></button>
+        <button class="btn-ghost" id="vaultAgain" type="button" hidden><svg><use href="#i-download"/></svg><span data-i18n="downloadAgain"></span></button>
+    </div>
+</div>
+
+<button class="to-top" id="toTop" type="button" data-i18n-title="toTop" data-magnetic>
+    <svg class="to-top-ring" viewBox="0 0 56 56" aria-hidden="true"><circle class="bg" cx="28" cy="28" r="25"/><circle class="fg" cx="28" cy="28" r="25"/></svg>
+    <svg class="to-top-icon"><use href="#i-up"/></svg>
+</button>
+
+<button class="wait-chip" id="waitChip" type="button" hidden data-magnetic>
+    <span class="wait-orb" aria-hidden="true"></span>
+    <svg><use href="#i-gamepad"/></svg>
+    <span class="wait-text"><b data-i18n="gamePlay"></b><small id="waitChipSub"></small></span>
+</button>
+
+<div class="game" id="game" hidden role="dialog" aria-modal="true" aria-labelledby="gameTitle">
+    <div class="game-veil" id="gameVeil"></div>
+    <div class="game-panel" id="gamePanel">
+        <div class="game-head">
+            <div class="game-title">
+                <span class="game-logo"><svg><use href="#i-gamepad"/></svg></span>
+                <div><b id="gameTitle">AURORA SNAKE</b><small id="gameStatus"></small></div>
+            </div>
+            <div class="game-scores">
+                <div><small data-i18n="gameScore"></small><b id="gameScore">0</b></div>
+                <div><small data-i18n="gameBest"></small><b id="gameBest">0</b></div>
+            </div>
+            <button class="lb-btn lb-close" id="gameClose" type="button" data-i18n-aria="lbClose"><svg><use href="#i-close"/></svg></button>
+        </div>
+        <div class="game-banner" id="gameBanner" hidden><span class="dot"></span><span id="gameBannerText"></span><button class="btn-primary" id="gameBannerBtn" type="button"></button></div>
+        <div class="game-stage" id="gameStage">
+            <canvas id="gameCanvas" aria-label="Aurora Snake"></canvas>
+            <div class="game-overlay is-on" id="gameOverlay">
+                <span class="game-done-badge" id="gameDoneBadge" hidden><svg><use href="#i-check"/></svg></span>
+                <b id="gameOverlayTitle"></b><span id="gameOverlayText"></span>
+                <div class="game-actions" id="gameActions" hidden>
+                    <button class="btn-ghost" id="gameContinue" type="button"><span id="gameContinueText"></span><kbd data-i18n="kbdSpace"></kbd></button>
+                    <button class="btn-primary" id="gameResults" type="button"><span id="gameResultsText"></span><kbd>Enter</kbd></button>
+                </div>
+            </div>
+        </div>
+        <div class="game-foot"><div class="game-haul" id="gameHaul"></div><span class="game-hint" id="gameHint"></span></div>
+    </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+    <div class="lb-veil" id="lbVeil"></div>
+    <div class="lb-top">
+        <div class="lb-pager">
+            <button class="lb-btn lb-jump" id="lbFirst" type="button" data-i18n-aria="lbFirst"><svg><use href="#i-first"/></svg></button>
+            <span class="lb-counter" id="lbCounter"></span>
+            <button class="lb-btn lb-jump" id="lbLast" type="button" data-i18n-aria="lbLast"><svg><use href="#i-last"/></svg></button>
+            <span class="lb-edge-tag" id="lbEdgeTag" aria-live="polite"></span>
+        </div>
+        <span class="spacer"></span>
+        <button class="lb-btn lb-close" id="lbClose" type="button" data-i18n-aria="lbClose"><svg><use href="#i-close"/></svg></button>
+    </div>
+    <div class="lb-body">
+        <div class="lb-stage cs-shine" id="lbStage">
+            <canvas class="cs-aura" id="lbAura" width="32" height="32" aria-hidden="true"></canvas>
+            <div class="cs-frame" id="lbFrame">
+                <img id="lbImg" alt="">
+                <video id="lbVideo" playsinline loop preload="auto" hidden></video>
+                <span class="lb-glare"></span>
+                <div class="lb-video-ui" id="lbVideoUi" hidden>
+                    <button type="button" id="lbPlay"></button>
+                    <div class="lb-progress" id="lbProgress" data-cursor="bare"><i></i><span class="lb-knob"></span><output class="lb-scrub-tip" id="lbScrubTip">0:00</output></div>
+                    <span class="lb-time" id="lbTime">0:00</span>
+                    <div class="lb-vol" id="lbVol">
+                        <button type="button" id="lbMute"></button>
+                        <div class="lb-vol-slider">
+                            <input type="range" id="lbVolume" min="0" max="100" step="1" value="100" data-i18n-aria="volume" data-cursor="bare">
+                            <output class="lb-vol-tip" id="lbVolTip" for="lbVolume">100 %</output>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="lb-nav prev" id="lbPrev" type="button" data-i18n-aria="lbPrev"><svg><use href="#i-left"/></svg></button>
+            <button class="lb-nav next" id="lbNext" type="button" data-i18n-aria="lbNext"><svg><use href="#i-right"/></svg></button>
+            <div class="lb-loading" id="lbLoading" hidden><span class="radar"></span><span data-i18n="loadingHd"></span></div>
+        </div>
+        <aside class="lb-panel">
+            <span class="lb-type" id="lbType"></span>
+            <h2 class="lb-title" id="lbTitle"></h2>
+            <p class="lb-caption" id="lbCaption"></p>
+            <dl class="lb-facts" id="lbFacts"></dl>
+            <div class="lb-actions">
+                <button class="btn-primary" id="lbDownload" type="button" data-magnetic><svg><use href="#i-download"/></svg><span data-i18n="lbDownload"></span></button>
+                <div class="row">
+                    <a class="btn-ghost" id="lbFb" href="#" target="_blank" rel="noopener noreferrer"><svg><use href="#i-external"/></svg><span data-i18n="lbOpenFb"></span></a>
+                    <button class="btn-ghost" id="lbCopy" type="button"><svg><use href="#i-copy"/></svg><span data-i18n="lbCopyId"></span></button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="cursor-ring" id="cursorRing" style="opacity:0"><span></span></div>
+<div class="cursor-dot" id="cursorDot" style="opacity:0"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
