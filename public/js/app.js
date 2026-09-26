@@ -118,6 +118,7 @@ initCursor($('cursorDot'), $('cursorRing'), (kind) => {
     if (kind === 'open') return S.selecting ? t('cursorPick') : t('cursorOpen');
     if (kind === 'save') return t('cursorSave');
     if (kind === 'scan') return t('cursorScan');
+    if (kind === 'pro') return t('cursorPro');
     return '';
 });
 initMagnetic();
@@ -1411,7 +1412,10 @@ $('brand').addEventListener('pointerenter', () => scramble($('brandName'), 'AURO
 
 // language
 document.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => {
-    setLang(b.dataset.lang);
+    // on phones only the active language is shown → tapping it switches to the other one
+    const other = [...document.querySelectorAll('[data-lang]')].find((x) => x !== b);
+    const next = b.dataset.lang === getLang() && other && other.offsetParent === null ? other.dataset.lang : b.dataset.lang;
+    setLang(next);
     document.querySelectorAll('[data-lang]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.lang === getLang())));
 }));
 document.addEventListener('av:lang', () => {

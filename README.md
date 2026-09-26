@@ -1,8 +1,16 @@
-# Aurora Vault
+# Aurora Vault Lite
 
 Web-App, die Bilder und Reels eines Facebook-Profils in voller Auflösung sammelt. Einzeln per Klick auf das Download-Symbol oder alles zusammen als ZIP. Alle Downloads laufen über das normale Download-Fenster des Browsers, auf dem Server wird nichts abgelegt.
 
 Nur für Inhalte verwenden, die du nutzen darfst (z. B. deine eigene Seite oder Inhalte mit Erlaubnis).
+
+## Aurora Vault Pro
+
+Die Lite-Version ist für Facebook gemacht. **Aurora Vault Pro** kann alles aus Lite und dazu Instagram und TikTok, im selben Design. Weitere Plattformen sind geplant und kommen laufend dazu. Link einfügen, die Plattform wird automatisch erkannt.
+
+**[Aurora Vault Pro auf Patreon](https://www.patreon.com/nikomedia/posts/aurora-vault-pro-170648084)**
+
+Deine Favoriten kannst du mitnehmen: in Lite im Favoriten-Menü **Exportieren**, in Pro **Importieren**.
 
 ## Hinweis zu Kontosperren
 
@@ -48,6 +56,7 @@ Abmelden über den Namen oben rechts → **Abmelden und Sitzung löschen**.
 - Bereits geladene Medien bekommen ein grünes **Geladen**-Label. Das merkt sich der Browser pro Profil.
 - **Favoriten:** Nach einem Scan auf **Merken** klicken. Favoriten stehen oben rechts unter **Favoriten** und auf der Startseite, ein Klick startet den Scan. Im Favoriten-Menü gibt es **Exportieren** und **Importieren** (JSON-Datei).
 - Der runde Pfeil unten rechts bringt dich wieder nach oben.
+- Auf der Startseite und in der Fußzeile führt der **Pro**-Link zu Aurora Vault Pro auf Patreon.
 - **Während des Scans** zeigt der Profilbereich die Schritte Bilder → Reels → Fertig, einen Lichtstrahl und einen Fortschrittsbalken. Am Ende des Rasters warten schimmernde Platzhalter auf neue Kacheln.
 - **Spiel spielen, während du wartest:** Beim Scan, bei der HD-Prüfung und beim ZIP-Packen erscheint ein Button für **Aurora Snake**. Die Schlange frisst die Bilder, die der Scan gerade findet. Steuerung mit Pfeiltasten/WASD oder Wischen, Leertaste = Pause, Esc = schließen. Ist der Scan fertig, hält das Spiel an und zeigt groß **Scan abgeschlossen** (mit Feuerwerk und Anzahl der Funde): **Weiterspielen** (Leertaste) oder **Zu den Ergebnissen** (Enter). Liegt der Tab im Hintergrund, steht „✓ Scan fertig“ im Tab-Titel. Mit der Taste `G` geht das Spiel jederzeit auf.
 
@@ -70,7 +79,7 @@ Kleine Extras zum Entdecken: Farbwelt-Schalter unten rechts, Klick in den leeren
 ## Sichern und weitergeben
 
 - **Backup der Favoriten:** im Favoriten-Menü **Exportieren**, oder den Ordner `data/` kopieren.
-- **App weitergeben:** `pack.bat` erstellt `aurora-vault.zip` **ohne** Login und ohne Favoriten.
+- **App weitergeben:** `pack.bat` erstellt `aurora-vault-lite.zip` **ohne** Login und ohne Favoriten.
 - Ein alter Ordner `downloads/` aus der ersten Version wird nicht mehr gebraucht und kann gelöscht werden.
 - `session/` enthält deine Facebook-Cookies. Diesen Ordner nie weitergeben.
 

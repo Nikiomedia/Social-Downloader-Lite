@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Aurora Vault</title>
-<meta name="description" content="Download photos and reels from a Facebook profile in full resolution, one by one or as a ZIP.">
+<title>Aurora Vault Lite</title>
+<meta name="description" content="Aurora Vault Lite: download photos and reels from a Facebook profile in full resolution, one by one or as a ZIP.">
 <meta name="theme-color" content="#05060b">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%2345f0e0'/%3E%3Cstop offset='.55' stop-color='%238a6cff'/%3E%3Cstop offset='1' stop-color='%23ff4fb6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%2305060b'/%3E%3Cpath d='M10 40 C22 16 42 16 54 40' stroke='url(%23g)' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3Cpath d='M18 48 C28 34 36 34 46 48' stroke='url(%23g)' stroke-width='5' fill='none' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -65,10 +65,10 @@
 <div class="scroll-line" id="scrollLine"></div>
 
 <header class="topbar">
-    <button class="brand" id="brand" type="button" aria-label="Aurora Vault">
+    <button class="brand" id="brand" type="button" aria-label="Aurora Vault Lite">
         <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="brand-text">
-            <span class="brand-name" id="brandName">AURORA VAULT</span>
+            <span class="brand-name"><span id="brandName">AURORA VAULT</span><span class="lite-badge">LITE</span></span>
             <span class="brand-sub" data-i18n="brandSub"></span>
         </span>
     </button>
@@ -125,6 +125,20 @@
                 <p class="hero-favs-title"><svg><use href="#i-star-fill"/></svg><span data-i18n="favorites"></span></p>
                 <div class="hero-favs-row" id="heroFavsRow"></div>
             </div>
+            <a class="pro-card" id="proCard" href="https://www.patreon.com/nikomedia/posts/aurora-vault-pro-170648084" target="_blank" rel="noopener noreferrer" data-cursor="pro">
+                <span class="pro-card-marks" aria-hidden="true">
+                    <span class="plat-mark" data-p="facebook">FB</span>
+                    <span class="plat-mark" data-p="instagram">IG</span>
+                    <span class="plat-mark" data-p="tiktok">TT</span>
+                    <span class="plat-mark plat-more">+</span>
+                </span>
+                <span class="pro-card-txt">
+                    <span class="pro-card-kicker"><span class="pro-badge">PRO</span><span data-i18n="proKicker"></span></span>
+                    <b data-i18n="proTitle"></b>
+                    <small data-i18n="proText"></small>
+                </span>
+                <span class="pro-card-cta"><span data-i18n="proCta"></span><svg><use href="#i-external"/></svg></span>
+            </a>
         </div>
         <div class="stack" id="stack" aria-hidden="true">
             <div class="stack-glow"></div>
@@ -205,7 +219,10 @@
     </section>
 
     <footer class="foot">
-        <span class="brandline"><b>Aurora Vault</b> · Nikomedia · <span data-i18n="footLegal"></span></span>
+        <span class="foot-left">
+            <span class="brandline"><b>Aurora Vault Lite</b> · Nikomedia · <span data-i18n="footLegal"></span></span>
+            <a class="foot-pro" href="https://www.patreon.com/nikomedia/posts/aurora-vault-pro-170648084" target="_blank" rel="noopener noreferrer"><span class="pro-badge">PRO</span><span data-i18n="footPro"></span><svg><use href="#i-external"/></svg></a>
+        </span>
         <span class="keys"><span><kbd>/</kbd><span data-i18n="keysFocus"></span></span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><span data-i18n="keysTabs"></span></span><span><kbd>S</kbd><span data-i18n="keysSelect"></span></span><span><kbd>H</kbd><span data-i18n="keysHd"></span></span><span><kbd>G</kbd><span data-i18n="keysGame"></span></span></span>
         <button class="palette-btn" id="btnPalette" type="button"><span class="sw"></span><span data-i18n="footPalette"></span>: <span id="paletteName">Aurora</span></button>
     </footer>

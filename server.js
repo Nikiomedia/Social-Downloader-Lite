@@ -1,6 +1,6 @@
 'use strict';
 /**
- * Aurora Vault – local server.
+ * Aurora Vault Lite – local server.
  * Serves the web app (public/), talks to Facebook through lib/fb.js and
  * handles downloads, the media proxy, ZIP export (streamed, nothing is stored
  * on the server) and the favorites list (data/favorites.json).
@@ -14,7 +14,7 @@
  */
 const major = Number(process.versions.node.split('.')[0]);
 if (major < 20) {
-    console.error(`\n  Aurora Vault needs Node.js 20 or newer (found ${process.versions.node}).\n  Download: https://nodejs.org\n`);
+    console.error(`\n  Aurora Vault Lite needs Node.js 20 or newer (found ${process.versions.node}).\n  Download: https://nodejs.org\n`);
     process.exit(1);
 }
 
@@ -37,6 +37,7 @@ const START_PORT = Number(process.env.PORT) || 4870;
 const HOST = process.env.HOST || '127.0.0.1';
 const PASSWORD = process.env.AV_PASSWORD || '';
 const VERSION = require('./package.json').version;
+const APP = 'Aurora Vault Lite';
 const RESOLVE_CONCURRENCY = 3;
 const ZIP_LOOKAHEAD = 3;
 const RESOLVE_TTL = 6 * 60 * 60 * 1000;
@@ -486,7 +487,7 @@ async function streamZip(job, scan, res) {
         job.state = job.error ? 'error' : 'cancelled';
         return jobEmit(job);
     }
-    archive.append(JSON.stringify({ app: 'Aurora Vault', version: VERSION, created: new Date().toISOString(), profile: scan.profile, items: manifest }, null, 2), { name: 'manifest.json' });
+    archive.append(JSON.stringify({ app: APP, version: VERSION, created: new Date().toISOString(), profile: scan.profile, items: manifest }, null, 2), { name: 'manifest.json' });
     await new Promise((resolve) => { res.on('finish', resolve); res.on('close', resolve); archive.finalize().catch(resolve); });
     job.size = archive.pointer();
     job.state = job.cancelled ? 'cancelled' : 'done';
@@ -512,7 +513,7 @@ function readFavs() {
 function writeFavs(list) {
     fs.mkdirSync(DATA, { recursive: true });
     const tmp = FAV_FILE + '.tmp';
-    fs.writeFileSync(tmp, JSON.stringify({ app: 'Aurora Vault', version: VERSION, favorites: list }, null, 2));
+    fs.writeFileSync(tmp, JSON.stringify({ app: APP, version: VERSION, favorites: list }, null, 2));
     fs.renameSync(tmp, FAV_FILE);
     return list;
 }
@@ -700,8 +701,8 @@ async function handleApi(req, res, url) {
         return send(res, 200, { favorites: writeFavs(readFavs().filter((f) => f.key !== key)) });
     }
     if (p === '/api/favorites-export' && req.method === 'GET') {
-        const body = JSON.stringify({ app: 'Aurora Vault', version: VERSION, exported: new Date().toISOString(), favorites: readFavs() }, null, 2);
-        return send(res, 200, body, { 'content-type': 'application/json; charset=utf-8', 'content-disposition': disposition(`aurora-vault-favorites_${new Date().toISOString().slice(0, 10)}.json`) });
+        const body = JSON.stringify({ app: APP, version: VERSION, exported: new Date().toISOString(), favorites: readFavs() }, null, 2);
+        return send(res, 200, body, { 'content-type': 'application/json; charset=utf-8', 'content-disposition': disposition(`aurora-vault-lite-favorites_${new Date().toISOString().slice(0, 10)}.json`) });
     }
     if (p === '/api/favorites-import' && req.method === 'POST') {
         const body = await readJson(req);
@@ -725,7 +726,7 @@ async function handleStatic(req, res, url) {
 
 const server = http.createServer(async (req, res) => {
     if (!checkAuth(req)) {
-        res.writeHead(401, { 'www-authenticate': 'Basic realm="Aurora Vault", charset="UTF-8"', 'content-type': 'text/plain; charset=utf-8' });
+        res.writeHead(401, { 'www-authenticate': 'Basic realm="Aurora Vault Lite", charset="UTF-8"', 'content-type': 'text/plain; charset=utf-8' });
         return res.end('Password required');
     }
     let url;
@@ -753,9 +754,9 @@ function listen(port, tries = 0) {
     });
     server.listen(port, HOST, () => {
         const url = `http://localhost:${port}`;
-        console.log('\n  ┌─────────────────────────────────────────┐');
-        console.log('  │  AURORA VAULT  ·  Facebook Media Vault  │');
-        console.log('  └─────────────────────────────────────────┘');
+        console.log('\n  ┌──────────────────────────────────────────────┐');
+        console.log('  │  AURORA VAULT LITE  ·  Facebook Media Vault  │');
+        console.log('  └──────────────────────────────────────────────┘');
         console.log(`\n  App:        ${url}${HOST !== '127.0.0.1' && HOST !== 'localhost' ? `   (listening on ${HOST})` : ''}`);
         if (PASSWORD) console.log('  Password:   on');
         else if (HOST !== '127.0.0.1' && HOST !== 'localhost') console.log('  WARNING:    reachable in the network without a password. Set AV_PASSWORD.');

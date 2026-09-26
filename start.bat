@@ -1,6 +1,6 @@
 @echo off
 setlocal
-title Aurora Vault
+title Aurora Vault Lite
 cd /d "%~dp0"
 
 where node >nul 2>nul
