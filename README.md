@@ -4,6 +4,16 @@ Web-App, die Bilder und Reels eines Facebook-Profils in voller Auflösung sammel
 
 Nur für Inhalte verwenden, die du nutzen darfst (z. B. deine eigene Seite oder Inhalte mit Erlaubnis).
 
+## Hinweis zu Kontosperren
+
+**Automatisierte Scans und Massendownloads können Anfragebegrenzungen, Sicherheitsprüfungen und vorübergehende Kontoeinschränkungen auslösen. Bei Verstößen gegen Plattformregeln sind auch dauerhafte Kontosperren möglich.** Bereits das Scannen und die HD-Prüfung erzeugen Anfragen.
+
+Die eingebauten Pausen und die begrenzte Parallelität reduzieren die Anfragerate, garantieren aber keinen Schutz vor Sperren. Für diese App gibt es keine verlässlich sichere Anzahl von Downloads oder garantierte Wartezeit.
+
+Bei Warnungen oder Einschränkungen die App beenden und die Hinweise der Plattform beachten. Nicht wiederholt neu starten oder mehrere App-Versionen gleichzeitig für dasselbe Konto verwenden. Verbinde kein Konto, dessen Einschränkung du nicht riskieren kannst.
+
+Beachte die jeweiligen Plattformbedingungen. Eine Erlaubnis des Urhebers für die Inhalte ersetzt keine gegebenenfalls nötige Erlaubnis der Plattform für automatisierte Zugriffe. [Meta beschreibt Anfragebegrenzungen und Kontodeaktivierungen als Maßnahmen gegen unerlaubtes Scraping.](https://about.fb.com/news/2021/04/how-we-combat-scraping/)
+
 ## Starten
 
 1. Einmalig [Node.js LTS](https://nodejs.org) installieren (Version 20 oder neuer).
@@ -76,7 +86,7 @@ Kleine Extras zum Entdecken: Farbwelt-Schalter unten rechts, Klick in den leeren
 
 - **„Kein Microsoft Edge oder Google Chrome gefunden“**: Edge ist bei Windows 11 dabei. Falls entfernt, Chrome installieren.
 - **„Bitte zuerst mit Facebook verbinden“** mitten im Scan: Die Sitzung ist abgelaufen. Neu verbinden.
-- **„Facebook bremst gerade“**: Zu viele Anfragen in kurzer Zeit. Die App wartet automatisch eine Minute und macht dann weiter.
+- **„Facebook bremst gerade“**: Die Plattform begrenzt Anfragen. Beim Nachladen von Medienlinks wartet die App bei einem erkannten Limit eine Minute und versucht es erneut. Das ist keine Entwarnung der Plattform. Beende die App bei dieser Meldung und beachte die Hinweise der Plattform.
 - **Profil nicht erreichbar**: privat, gelöscht oder für dein Konto nicht sichtbar.
 - **Anderer Port**: `set PORT=5000` vor `node server.js`, oder der Server nimmt automatisch den nächsten freien Port.
 - **Browser erzwingen**: `set AV_BROWSER=chrome` (oder `msedge`).
